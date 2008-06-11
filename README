@@ -1,9 +1,11 @@
-to_csv
-======
+to_csv plugin
+=============
 
 Gives ability to call to_csv to an array of activerecords. The options are the based on to_json, to_xml, except for the :include.
 
-Usage:
+
+Usage
+=====
 
 @users = User.all
 
@@ -14,7 +16,9 @@ Usage:
 @users.to_csv(:except => [:last_name, :role])
 @users.to_csv(:except => :role, :methods => [:name, :admin?])
 
-Real life example:
+
+Real life example
+=================
 
 In config/initializers/myme_types.rb add this line:
 
@@ -49,9 +53,17 @@ In the controller where you want to export to csv
 	end
 
 
-Ideas from Mike Clarks recipe #35 in Rails Recipes book, some anonymous pastie, and whoever wrote to_xml/to_json builders.
+Ideas
+=====
 
-NOTE:	Does not work on a single activerecord, ie, User.first.to_csv
-			Does anyone think this is necessary?
+From Mike Clarks recipe #35 in Rails Recipes book, some anonymous pastie, and whoever wrote to_xml/to_json builders.
+
+
+Note
+====
+
+Does not work on a single activerecord, ie, User.first.to_csv
+Does anyone think this is necessary?
+
 
 Copyright (c) 2008 Ary Djmal, released under the MIT license
