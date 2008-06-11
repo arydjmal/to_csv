@@ -22,7 +22,7 @@ This simple plugin gives you the ability to call to_csv to a collection of activ
 	
 In the controller where you want to export to csv, add the format.csv line (as of rails 2.1 it is not necessary to register the csv myme_type)
 
-class UserController < ApplicationController
+	class UserController < ApplicationController
 
 		def index
 			@users = User.all
