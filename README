@@ -19,12 +19,8 @@ Usage
 
 Real life example
 =================
-
-In config/initializers/myme_types.rb add this line:
-
-	Mime::Type.register_alias "text/csv", :csv
 	
-In the controller where you want to export to csv
+In the controller where you want to export to csv, add the format.csv line (as of rails 2.1 it is not necessary to register the csv myme_type)
 
 	class UserController < ApplicationController
 
