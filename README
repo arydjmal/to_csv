@@ -1,7 +1,7 @@
 to_csv plugin
 =============
 
-Gives ability to call to_csv to an array of activerecords. The options are the based on to_json, to_xml, except for the :include.
+This simple plugin gives you the ability to call to_csv to a collection of activerecords. The builder options are the same as to_json / to_xml, except for the :include.
 
 
 Usage
@@ -9,8 +9,11 @@ Usage
 
 @users = User.all
 
-@users.to_csv # defaults are: header and all fields except id and timestamps
- 
+#
+# defaults are export header and all fields except id, and timestamps
+#
+
+@users.to_csv
 @users.to_csv(:only => [:last_name, :role])
 @users.to_csv(:timestamps => true, :id => true, :header => false)
 @users.to_csv(:except => [:last_name, :role])
@@ -35,31 +38,32 @@ In the controller where you want to export to csv, add the format.csv line (as o
 		end
 
 		def show...
-
 		def new...
-
 		def edit...
-
 		def create...
-
 		def update...
-
 		def destroy...
 
 	end
 
 
+Install
+=======
+
+./script/plugin install git://github.com/arydjmal/to_csv.git
+
+
 Ideas
 =====
 
-From Mike Clarks recipe #35 in Rails Recipes book, some anonymous pastie, and whoever wrote to_xml/to_json builders.
+I got ideas and influence from Mike Clarks recipe #35 in Rails Recipes book, some anonymous pastie, and whoever wrote to_xml/to_json builders.
 
 
 Note
 ====
 
-Does not work on a single activerecord, ie, User.first.to_csv
-Does anyone think this is necessary?
+Does not work on a single activerecord, ie, User.first.to_csv.
+Cannot style output.
 
 
 Copyright (c) 2008 Ary Djmal, released under the MIT license
