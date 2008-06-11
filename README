@@ -1,0 +1,57 @@
+to_csv
+======
+
+Gives ability to call to_csv to an array of activerecords. The options are the based on to_json, to_xml, except for the :include.
+
+Usage:
+
+@users = User.all
+
+@users.to_csv # defaults are: header and all fields except id and timestamps
+ 
+@users.to_csv(:only => [:last_name, :role])
+@users.to_csv(:timestamps => true, :id => true, :header => false)
+@users.to_csv(:except => [:last_name, :role])
+@users.to_csv(:except => :role, :methods => [:name, :admin?])
+
+Real life example:
+
+In config/initializers/myme_types.rb add this line:
+
+	Mime::Type.register_alias "text/csv", :csv
+	
+In the controller where you want to export to csv
+
+	class UserController < ApplicationController
+
+		def index
+			@users = User.all
+
+			respond_to do |format|
+				format.html
+				format.xml { render :xml => @users }
+				format.csv { send_data @users.to_csv }
+			end
+		end
+
+		def show...
+
+		def new...
+
+		def edit...
+
+		def create...
+
+		def update...
+
+		def destroy...
+
+	end
+
+
+Ideas from Mike Clarks recipe #35 in Rails Recipes book, some anonymous pastie, and whoever wrote to_xml/to_json builders.
+
+NOTE:	Does not work on a single activerecord, ie, User.first.to_csv
+			Does anyone think this is necessary?
+
+Copyright (c) 2008 Ary Djmal, released under the MIT license
