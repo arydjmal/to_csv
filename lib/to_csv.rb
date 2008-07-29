@@ -10,7 +10,7 @@ class Array
       columns -= [:id] unless options[:id] == true
     end
     
-    CSV::Writer.generate(output = "") do |csv|
+    output = FasterCSV.generate do |csv|
       csv << columns.collect {|c| c} unless options[:header] == false
       self.each do |item|
         csv << columns.collect {|c| item.send(c)}
