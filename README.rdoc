@@ -44,6 +44,11 @@ In the controller where you want to export to csv, add the format.csv line (as o
 	end
 
 
+== Dependencies
+
+	sudo gem install fastercsv
+
+
 == Install
 
 	./script/plugin install git://github.com/arydjmal/to_csv.git
