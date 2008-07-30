@@ -16,7 +16,17 @@ This simple plugin gives you the ability to call to_csv to a collection of activ
 	@users.to_csv(:timestamps => true, :id => true, :header => false)
 	@users.to_csv(:except => [:last_name, :role])
 	@users.to_csv(:except => :role, :methods => [:name, :admin?])
-
+	
+	#
+	# NEW FEATURE
+	# Now you can call methods of a has_one or belongs_to association 
+	# (for now you can go up/down 1 level)
+  #
+  (A note belongs_to :user)
+  @notes = Note.all
+  @notes.to_csv(:methods => [{:user => :name}])
+  
+  
 
 == Real life example
 	
