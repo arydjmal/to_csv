@@ -8,25 +8,14 @@ This simple plugin gives you the ability to call to_csv to a collection of activ
   @users = User.all
 
   #
-  # defaults are export header and all fields except id, and timestamps
+  # defaults are export headers and all fields
   #
 
   @users.to_csv
   @users.to_csv(:only => [:last_name, :role])
-  @users.to_csv(:timestamps => true, :id => true, :header => false)
+  @users.to_csv(:headers => false)
   @users.to_csv(:except => [:last_name, :role])
-  @users.to_csv(:except => :role, :methods => [:name, :admin?])
-
-  #
-  # NEW FEATURE
-  # Now you can call methods of a has_one or belongs_to association 
-  # (for now you can go up/down 1 level)
-  #
-
-  # A note belongs_to :user
-  @notes = Note.all
-  @notes.to_csv(:methods => [{:user => :name}])
-
+  @users.to_csv(:except => :role, :methods => :admin?)
 
 
 == Real life example
@@ -73,7 +62,7 @@ I got ideas and influence from Mike Clarks recipe #35 in Rails Recipes book, som
 == Note
 
 Does not work on a single activerecord, ie, User.first.to_csv.
-Cannot style output.
+
 
 
 Copyright (c) 2008 Ary Djmal, released under the MIT license

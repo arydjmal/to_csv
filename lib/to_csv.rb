@@ -1,52 +1,26 @@
 class Array
   
   def to_csv(options = {})
+    return '' if self.empty?
+    
+    all_columns = self.first.class.columns.collect { |c| c.name.to_sym }
+    
     if options[:only]
       columns = options[:only].to_a
     else
-      columns = self.first.class.columns.collect {|c| c.name.to_sym} - options[:except].to_a
-      columns -= [:created_at, :updated_at] unless options[:timestamps] == true
-      columns -= [:id] unless options[:id] == true
+      columns = all_columns - options[:except].to_a
     end
     
-    # Expand methods, [{:user => [:name, :id]}] => [{:user => :name}, {:user => :id}]
-    if methods = options[:methods]
-      methods = methods.collect do |method|
-        if method.is_a?(Symbol)
-          method
-        else
-          if method[method.keys.first].is_a?(Array)
-            method[method.keys.first].collect {|association_method| [{method.keys.first => association_method}]}
-          else
-            method
-          end
-        end
-      end
-      columns << methods
-    end
+    columns = columns & all_columns
     
-    columns = columns.flatten
+    columns += options[:methods].to_a
+    
+    return '' if columns.empty?
     
     output = FasterCSV.generate do |csv|
-      
-      unless options[:header] == false
-        csv << columns.collect do |column|
-          if column.is_a?(Symbol)
-            column
-          else
-            "#{column.keys.first}_#{column[column.keys.first]}"
-          end
-        end
-      end 
-      
+      csv << columns unless options[:headers] == false
       self.each do |item|
-        csv << columns.collect do |column|
-          if column.kind_of?(Hash)
-            item.send(column.keys.first).send(column[column.keys.first])
-          else
-            item.send(column)
-          end
-        end
+        csv << columns.collect { |column| item.send(column) }
       end
     end
     

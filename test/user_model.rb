@@ -10,6 +10,10 @@ class User
   def self.columns
     COLUMNS.collect { |column| Column.new(column) }
   end
+  
+  def is_old?
+    age > 40
+  end
 end
 
 class Column
