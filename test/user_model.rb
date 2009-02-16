@@ -7,19 +7,15 @@ class User
     COLUMNS.each {|column| eval("@#{column} = params[:#{column}]")}
   end
   
-  def self.columns
-    COLUMNS.collect { |column| Column.new(column) }
+  def attributes
+    self
+  end
+  
+  def keys
+    COLUMNS
   end
   
   def is_old?
     age > 40
-  end
-end
-
-class Column
-  attr_reader :name
-  
-  def initialize(name)
-    @name = name
   end
 end

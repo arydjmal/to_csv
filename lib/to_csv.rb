@@ -3,16 +3,14 @@ class Array
   def to_csv(options = {})
     return '' if self.empty?
     
-    all_columns = self.first.class.columns.collect { |c| c.name.to_sym }
+    attributes = self.first.attributes.keys.collect { |c| c.to_sym }
     
     if options[:only]
-      columns = options[:only].to_a
+      columns = options[:only].to_a & attributes
     else
-      columns = all_columns - options[:except].to_a
+      columns = attributes - options[:except].to_a
     end
-    
-    columns = columns & all_columns
-    
+        
     columns += options[:methods].to_a
     
     return '' if columns.empty?
