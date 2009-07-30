@@ -6,12 +6,12 @@ class Array
     attributes = self.first.attributes.keys.collect { |c| c.to_sym }
     
     if options[:only]
-      columns = options[:only].to_a & attributes
+      columns = Array(options[:only]) & attributes
     else
-      columns = attributes - options[:except].to_a
+      columns = attributes - Array(options[:except])
     end
         
-    columns += options[:methods].to_a
+    columns += Array(options[:methods])
     
     return '' if columns.empty?
     
