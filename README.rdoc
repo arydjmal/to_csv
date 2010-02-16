@@ -15,7 +15,7 @@ This simple plugin gives you the ability to call to_csv to a collection of activ
   @users.to_csv(:only => [:last_name, :role])
   @users.to_csv(:headers => false)
   @users.to_csv(:except => [:last_name, :role])
-  @users.to_csv(:except => :role, :methods => :admin?)
+  @users.to_csv(:methods => :admin?)
 
 
 == Real life example
@@ -65,4 +65,4 @@ Does not work on a single activerecord, ie, User.first.to_csv.
 
 
 
-Copyright (c) 2008 Ary Djmal, released under the MIT license
+Copyright (c) 2008-2010 Ary Djmal, released under the MIT license
