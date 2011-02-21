@@ -1,5 +1,5 @@
 class Array
-  def to_csv(options = {})
+  def to_csv(options = {}, fastercsv_options = {})
     return '' if self.empty?
 
     klass      = self.first.class
@@ -15,7 +15,7 @@ class Array
 
     return '' if columns.empty?
 
-    output = FasterCSV.generate do |csv|
+    output = FasterCSV.generate(fastercsv_options) do |csv|
       csv << columns.map { |column| klass.human_attribute_name(column) } unless options[:headers] == false
       self.each do |item|
         csv << columns.collect { |column| item.send(column) }
