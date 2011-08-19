@@ -12,7 +12,7 @@ class ToCsvTest < Test::Unit::TestCase
     assert_equal( "", [].to_csv )
   end
 
-  def test_with_fastercsv_option
+  def test_with_csv_options
     assert_equal( "Age\tId\tName\n25\t1\tAry\n22\t2\tNati\n", @users.to_csv({}, :col_sep => "\t"))
   end
 
